@@ -1,0 +1,220 @@
+ 	\documentclass{article}
+
+%Header Dimensions
+%https://tex.stackexchange.com/questions/40183/problem-with-the-header-footer-width#40184
+\usepackage[margin=0.5in,bottom=0.5in,top=0.5in]{geometry}
+
+%Package required for empty set
+\usepackage{amssymb}
+
+%Package required for Comb/Perm symbol and matrices
+\usepackage{amsmath}
+
+%Package for graphics
+\usepackage{graphicx}
+
+\begin{document}
+
+	
+%%%%%%%%%%%%%%%%%
+%CUSTOM COMMANDS%
+%%%%%%%%%%%%%%%%%
+
+	%This line surpresses the page number
+%https://tex.stackexchange.com/questions/7355/how-to-suppress-page-number
+\thispagestyle{empty}
+
+%Make empty set pretty
+% https://tex.stackexchange.com/questions/22798/nice-looking-empty-setup
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+
+%Combinatorial notation
+%From https://tex.stackexchange.com/questions/107125/is-there-a-command-to-write-the-form-of-a-combination-or-permutation
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+
+
+	
+\textbf{	Matt Fletcher MA385 Homework 2}
+\smallskip
+
+\noindent\rule{8cm}{0.4pt}
+
+1. 
+Desired outcomes: There are $11\times10\times9$ scenarios where the janitor opens the door on the fourth try. The reason for this is because he can pick any of the 11 incorrect keys for the first key, any of the 10 incorrect remaining keys for the second key, and any of the 9 incorrect remaining keys for the third key. There is only one option for the fourth key, the correct one. 
+
+Total outcomes: There are $12 \times 11 \times 10 \times 9 $ ways to select the first 4 keys. The reason for this is because there are 11 keys he can select for the first non-working key. After he discards that key, there are 10 remaining non-working keys. After he discards that key, there are 9 remaining non-working keys. Finally, on his fourth key, there is 1 key (the working key) that he can pick. Therefore, the probability is $\frac{11\times10\times9}{12\times11\times10\times9} = \boxed{\frac{1}{12}}$
+
+\noindent\rule{8cm}{0.4pt}
+
+2. This problem requires the use of Bayes theorem. 
+
+Let $P(J)$ be the probability she gets into Dr J's class. 
+
+Let $P(S)$ be the probability she gets into Dr S's class. 
+
+Let $P(C)$ be the probability she passes the class. Because C's get degrees. 
+
+Using Bayes Theorem, I can set up an equation to find the probability $P(J|C)$, or the probability of her passing the class given that she gets into Dr J's class. 
+
+
+\[P(J|A) = \frac{P(A|J)}{P(A|S) \times P(S) + P(A|J) P(J)}\]
+
+$P(A|J)$ is $0.8$, because she estimates an $80\%$ chance of passing the class GIVEN that she gets into it in the first place. With the same logic, $P(A|S)$ is 0.6. 
+
+Plugging into the equation:
+
+
+\[P(J|A) = \frac{0.8\times 0.4} {(0.6 \times 0.6) + (0.8 \times 0.4)} = \boxed{\frac{8}{17}} \]
+
+
+
+
+
+\noindent\rule{8cm}{0.4pt}
+
+3. 
+
+The probability of any person scoring a basket is an infinite sum. Let's put the information in a table to visualize it better. 
+
+
+Let $K$, $L$, and $S$ be the probability that Kevin, LeBron, and Steven make any shot, respectively. 
+
+
+%Force table to position using [h] param
+%Obtained from https://tex.stackexchange.com/questions/3189/why-is-my-table-displayed-at-the-top-of-the-page
+\begin{table}[h]
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Shot \# & Kevin & LeBron & Steven \\ \hline
+		1 & $K$ & $0$ & $0$ \\ \hline
+		2 & $0$ & $(1-K) \times L$ & $0$ \\ \hline
+		3 & $0$ & $0$ & $(1-K)\times(1-L) \times S$ \\ \hline
+		4 & $(1-K) \times (1-L) \times (1-S) \times K$ & $0$ & $0$ \\ \hline
+		5 & $0$ & $(1-K) ^ 2 \times (1-L) \times (1-S)\times K$ & $0$ \\ \hline
+		6 & $0$ & $0$ & $(1-K) ^ 2 \times (1-L) ^ 2 \times (1-S) \times S$ \\ \hline
+		7 & $(1-K) ^ 3 \times (1-L) ^ 2 \times (1-S)$ & $0$ & $0$ \\ \hline
+	\end{tabular}
+\end{table}
+
+Observing this carefully, certain equations can be derived. Note that $n$ is the \textit{cycle} of shots, and not the shot number itself. 
+
+The probability that Kevin eventually makes the first basket: 
+\[\sum_{n = 0}^{\infty} = (1-K)^n \times (1-L)^n \times (1-S)^n \times K \]
+
+Substituting in numbers:
+\[\sum_{n = 0}^{\infty} = (1-0.55)^n \times (1-0.65)^n \times (1-0.7)^n \times 0.55 \]
+
+\[\sum_{n = 0}^{\infty} = (0.45)^n \times (0.35)^n \times (0.3)^n \times 0.55 \]
+
+This simplifies to:
+
+\[\sum_{n = 0}^{\infty} = 0.55 \times 0.04725^n\]
+
+As this is in the form $a \times r ^ k$, we can use the equation $\frac{a}{1-r}$, giving \boxed{0.5773}. Problem continues: 
+
+
+
+
+
+The probability that Lebron eventually makes the first basket: 
+\[\sum_{n = 0}^{\infty} = (1-K)^{n+1} \times (1-L)^{n} \times (1-S)^n \times L \]
+
+Substituting in numbers:
+\[\sum_{n = 0}^{\infty} = (1-0.55)^{n+1} \times (1-0.65)^n \times (1-0.7)^n \times 0.65 \]
+
+\[\sum_{n = 0}^{\infty} = (0.45)^{n} \times (0.35)^n \times (0.3)^n \times 0.65 \times 0.45 \]
+
+This simplifies to:
+
+\[\sum_{n = 0}^{\infty} = 0.2925 \times 0.04725^n\]
+
+As this is in the form $a \times r ^ k$, we can use the equation $\frac{a}{1-r}$, giving \boxed{0.307}.
+
+
+
+
+
+
+The probability that Steven eventually makes the first basket: 
+\[\sum_{n = 0}^{\infty} = (1-K)^{n+1} \times (1-L)^{n+1} \times (1-S)^n \times S \]
+
+
+Substituting in numbers:
+\[\sum_{n = 0}^{\infty} = (1-0.55)^{n+1} \times (1-0.65)^{n+1} \times (1-0.7)^n \times 0.7 \]
+
+\[\sum_{n = 0}^{\infty} = (0.45)^n \times (0.35)^n \times (0.3)^n \times 0.7 \times0.45 \times 0.35 \]
+
+This simplifies to:
+
+\[\sum_{n = 0}^{\infty} = 0.11 \times 0.04725^n\]
+
+As this is in the form $a \times r ^ k$, we can use the equation $\frac{a}{1-r}$, giving \boxed{0.215}.
+
+
+\noindent\rule{8cm}{0.4pt} 
+
+4. 
+
+
+
+Let $P(M)$ be the probability that Matthew hits, and therefore $P(M')$ is the probability that he misses. In the same way, let $P(S)$ be the probability that Stan hits, and therefore $P(S')$ is the probability that he misses. Therefore,
+
+
+\begin{equation}
+\label{eq:bayes}
+P(S|M') = \frac{P(S\cap M')}{P(S' \cap M) + P(S\cap M')}
+\end{equation}
+
+$P(S\cap M') = 0.6 \times (1-0.3) = 0.42$. 
+
+$P(S' \cap M) = (1 - 0.6) \times 0.3 = 0.12$. 
+
+\[P(S|M') = \frac{0.42}{0.12 + 0.42} = \boxed{0.\overline{7}}\]
+
+
+
+
+
+\noindent\rule{8cm}{0.4pt}
+
+
+
+5. \boxed{\text{Chegg has faulty logic}}. The method of counting outcomes requires that all outcomes be equally likely, or weighted to make them such. The probability of the first egg being rotten is $\frac{4}{12}$. This is a different probability than the second egg being rotten. 
+
+Chegg's logic is similar to saying "There is a 50/50 chance you get into college, either you do or you don't." 
+
+
+
+%TODO REMOVE
+\begin{equation}
+\label{eq:bayes}
+P(A|B) = P(A) \frac{P(B|A)}{P(B)}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+\end{document}

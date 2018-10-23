@@ -1,0 +1,209 @@
+ 	\documentclass{article}
+
+%Header Dimensions
+%https://tex.stackexchange.com/questions/40183/problem-with-the-header-footer-width#40184
+\usepackage[margin=0.5in,bottom=0.5in,top=0.5in]{geometry}
+
+%Package required for empty set
+\usepackage{amssymb}
+
+%Package required for Comb/Perm symbol and matrices
+\usepackage{amsmath}
+
+%Package for graphics
+\usepackage{graphicx}
+
+\begin{document}
+
+	
+%%%%%%%%%%%%%%%%%
+%CUSTOM COMMANDS%
+%%%%%%%%%%%%%%%%%
+
+	%This line surpresses the page number
+%https://tex.stackexchange.com/questions/7355/how-to-suppress-page-number
+\thispagestyle{empty}
+
+%Make empty set pretty
+% https://tex.stackexchange.com/questions/22798/nice-looking-empty-setup
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+
+%Combinatorial notation
+%From https://tex.stackexchange.com/questions/107125/is-there-a-command-to-write-the-form-of-a-combination-or-permutation
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+
+
+	
+\textbf{	Matt Fletcher MA385 Homework 3}
+\smallskip
+
+\noindent\rule{8cm}{0.4pt}
+
+1. The probability he gets a hit at any at bat is 0.342. We need to find the probability that his 9th at bat is his 5th hit. This is a negative binomial distribution. 
+
+The probability it takes $k$ trials to get $r$ successes, with the probability of success on any one trial being $p$, is:
+
+\[P(x=k) =  \binom{k-1}{r-1} (p)^r (1-p)^{k-r}\]
+
+\[P(x=9) =  \binom{9-1}{5-1} (0.342)^5 (1-0.342)^{9-5}\]
+
+\[P(x=9) =\boxed{0.0613948} \]
+
+
+
+
+
+
+\noindent\rule{8cm}{0.4pt}
+
+2. 
+
+a) Find EV and Var of the sum of 2 dice:
+
+	2 dice rolled together can have any value from 2 to 12. In the following table, roll is the value of a roll, and roll count is the number of ways that roll can be achieved. 
+
+
+\begin{table}[h]
+\begin{tabular}{llllllllllll}
+Roll       & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+Roll Count & 1 & 2 & 3 & 4 & 5 & 6 & 5 & 4 & 3  & 2  & 1 
+\end{tabular}
+\end{table}
+
+The expected value is  $\Sigma \text{rollvalue} \cdot \frac{\text{rollcount}}{36}$
+
+This results in an EV of $\boxed{7}$
+
+
+	The variance is represented by $E[x^2] - E[x]^2 = 54.833 - 49 = \boxed{5.8333} $
+\\
+b) Find EV and Var of the min roll of 2 dice. 
+
+There are 11 ways that the minimum value is a 1: 
+
+Die 1 has a 1, Die 2 has 2,3,4,5, or 6. (5 ways)
+
+Die 2 has a 1, Die 1 has 2,3,4,5, or 6. (5 ways)
+
+Both die show a 1. (1 way)
+
+There are 9 ways that the minimum value is a 2: 
+
+Die 1 has a 2, Die 2 has 3,4,5, or 6. (4 ways)
+
+Die 2 has a 2, Die 1 has 3,4,5, or 6. (4 ways)
+
+Both die show a 2. (1 way)
+
+It is apparent there is a pattern: 11, 9, 7, 5, 3, 1. The sum of these is 36, which checks out. 
+
+Roll\_{count} = 13-2x, where x is the minimum value. 
+
+\begin{table}[h]
+\begin{tabular}{llllllllllll}
+Min Value  & 1 & 2 & 3 & 4 & 5 & 6 \\
+Roll Count & 11 & 9 & 7 & 5 & 3 & 1  
+\end{tabular}
+\end{table}
+
+
+As in part A, we find the sum of the values multiplied by their probabilities. 
+
+$(1\times11 + 2\times9 + 3\times7 + 4\times5 + 5\times3 + 6\times1) \times \frac{1}{36} = \frac{91}{36} =\boxed{2.5277}$
+
+
+To find variance, find the Expected value of the square of the results:
+
+$E[x^2] = (1^2\times11 + 2^2\times9 + 3^2\times7 + 4^2\times5 + 5^2\times3 + 6^2\times1) \times \frac{1}{36} = 8.3611$
+
+$E[x]^2 = 6.3896. $
+
+$Var = 8.36111-6.3896 = \boxed{1.9714}$
+
+
+
+\noindent\rule{8cm}{0.4pt}
+
+3. a) The probability that all 12 customers order the regular chicken sandwich is $(0.75)^{12} = \boxed{0.031676}$ 
+
+
+b) The probability that no more than 3 customers order the spicy chicken sandwich can be found more easily by finding 1 minus the probability that 0, 1, 2, or 3 customers order the spicy chicken sandwich. 
+
+This is a cumulative binomial random variable. 
+
+According to the $binomcdf$ function in my TI84, with function arguments $trials = 12$, $p = 0.25$, and $x = 3$, the result is \boxed{0.64877}. 
+
+\noindent\rule{8cm}{0.4pt}
+
+
+4. To find the probability that at least 1 double is rolled, it is easier to find the compliment of the probability that no doubles are rolled. Let $n = 24$, for the number of trials. Let $p = \frac{6}{36} = \frac{1}{6}$, for the probability that neither die lands on the same value as the other. Then, $\lambda = np = 24 \times \frac{5}{6} = 4$. 
+
+Now, we can use the Poisson equation:
+
+\begin{equation}
+P(x=k) = \frac{\lambda ^ k}{k!} e^{-\lambda}
+\end{equation}
+
+Let $k = 0$. 
+
+
+\[P(x=0) = \frac{4 ^ 0}{0!} e^{-4}\]
+
+This results in $0.01831$, and the compliment is $1-0.01831 = 98.16\%$
+
+
+
+The exact value is given by the following logic:
+The probability at least one double is rolled is the compliment of the probability that no doubles are rolled. The probability of no doubles being rolled is $\frac{5}{6}$. This must happen 24 times in a row. Therefore, the probability of no doubles being rolled is $\frac{5}{6}^{24} = 0.012579$, and the probability of at least one double being rolled is $1 - 0.012579 = \boxed{98.742\%}$.  
+
+\noindent\rule{8cm}{0.4pt}
+
+
+5. The sum of the probabilities in the bottom row must equal 1. Therefore, I know that $f(5)$ and $f(6)$ sum to $0.1$. 
+
+Calculating $\mu$ for the known values, with $a$ and $b$ standing for $f(5)$ and $f(6)$ respectively:
+
+$0\times0.1 + 1\times0.15 + 2\times0.2 + 3\times0.25+4\times0.2 + 5\times a + 6\times b = 2.64 $ (this value is given)
+
+$0\times0.1 + 1\times0.15 + 2\times0.2 + 3\times0.25+4\times0.2  = 2.1 $ 
+
+Therefore, $5a + 6b = 2.64 - 2.1 = 0.54$
+
+Also, from above, $a+b=0.1$. 
+
+This is just simultaneous equations: 
+
+
+$f(5) = \boxed{0.06}$
+
+$f(6) = \boxed{0.04}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+\end{document}

@@ -1,0 +1,159 @@
+\documentclass{article}
+
+%Header Dimensions
+%https://tex.stackexchange.com/questions/40183/problem-with-the-header-footer-width#40184
+\usepackage[margin=0.5in,bottom=0.5in,top=0.5in]{geometry}
+
+%Package required for empty set
+\usepackage{amssymb}
+
+%Package required for Comb/Perm symbol and matrices
+\usepackage{amsmath}
+
+%Package for graphics
+\usepackage{graphicx}
+
+%Package for placing graphics
+\usepackage{float}
+
+%Places box around graphics
+\floatstyle{boxed} 
+\restylefloat{figure}
+
+\begin{document}
+
+	
+%%%%%%%%%%%%%%%%%
+%CUSTOM COMMANDS%
+%%%%%%%%%%%%%%%%%
+
+	%This line surpresses the page number
+%https://tex.stackexchange.com/questions/7355/how-to-suppress-page-number
+\thispagestyle{empty}
+
+%Make empty set pretty
+% https://tex.stackexchange.com/questions/22798/nice-looking-empty-setup
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+
+%Combinatorial notation
+%From https://tex.stackexchange.com/questions/107125/is-there-a-command-to-write-the-form-of-a-combination-or-permutation
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+
+
+	
+\textbf{	Matt Fletcher MA385 Homework 4}
+\smallskip
+
+1. According to the problem, the weight $x$ is distributed according to the normal distrubution $N(3, 0.1^2)$. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{"../../Pictures/Screenshot from 2018-10-19 13-58-21"}
+	\caption{Graph of the normal distribution for Problem 1. }
+	\label{fig:screenshot-from-2018-10-19-13-58-21}
+\end{figure}
+
+
+To find $P(2.9 < x < 3.1)$, I will use the calculator. Because my mean is not zero, I will have to calculate a Z score. 
+
+$Z = \frac{x-\mu}{\sigma}$.
+
+Now, using this formula, $P(2.9 < x < 3.1)$ goes to $P(\frac{2.9-3}{0.1} < \frac{x-3}{0.1} < \frac{3.1-3}{0.1})=P(-1 < z < 1)$
+
+Now, I can use my calculator, and use the normalcdf function (called via $normalcdf(lowerbound,upperbound,\mu,\sigma)$. 
+
+Because I have normalized my data using the Z score, my $\mu$ is zero, and my $\sigma$ is 1. Using the bounds $-1<Z<1$, I get the result of $\boxed{0.6826}. $
+
+C) Because the graph is symmetric about the line $x=3$, this answer can be found by finding the symmetric probability that the weight of a nail is between 2.8 and 3.2, then finding the complement (in other words, the probability the nail is outside these paremeters). However, this accounts for both the nails that are too light and the nails that are too heavy. Because the data is symmetric, we can divide it by 2 to get the final answer. In other words, the equation to find the answer is $\frac{1}{2}(1 - P(2.8 \leq x \leq 3.2) )$. 
+
+Because the $\mu \neq 0$, I must normalize it using the Z score formula:
+
+ $P(2.8 < x < 3.2)$ goes to $P(\frac{2.8-3}{0.1} < \frac{x-3}{0.1} < \frac{3.2-3}{0.1})=P(-2 < z < 2)$. 
+ 
+ Now, I can use my calculator, and use the normalcdf function (called via $normalcdf(lowerbound,upperbound,\mu,\sigma)$. 
+ 
+ Because I have normalized my data using the Z score, my $\mu$ is zero, and my $\sigma$ is 1. Using the bounds $-2<Z<2$, I get the result of $P(2.8 \leq x \leq 3.2) = 95.449\%$. Plugging this into the equation above:
+ 
+ $\frac{1}{2}(1 - P(2.8 \leq x \leq 3.2) ) = \boxed{2.275\%}$
+ 
+
+\noindent\rule{8cm}{0.4pt}
+
+2. The variable $y$ is given as a normally distributed variable $y = N(100, 25)$. The $\sigma$ value given is actually $\sigma^2$, so $\sigma=5$.  
+
+The proportion of items below weight 100 grams is \boxed{50\%}. This is because the mean weight is 100 grams. According to a normal distribution, 50\% of the items lie below the median, and 50\% lie above the median. 
+
+The specs for the item are given as $100 \pm 12$ grams. The proportion of items inside this specification is $P(100-12 \leq y \leq 100+12) = P(88 \leq y \leq 112)$. This data must be normalized with a Z score. 
+
+$Z = \frac{x-\mu}{\sigma}$.
+
+Now, using this formula, $P(88 < x < 112)$ goes to $P(\frac{88-100}{5} < \frac{y-100}{5} < \frac{112-100}{5})=P(-2.4 < z < 2.4)$. 
+
+Now, I can use my calculator, and use the normalcdf function (called via $normalcdf(lowerbound,upperbound,\mu,\sigma)$. 
+
+Because I have normalized my data using the Z score, my $\mu$ is zero, and my $\sigma$ is 1. Using the bounds $-2.4<Z<2.4$, I get the result of 98.36\%. However, this calculates the percent of items that fall inside the specs. The problem asks for the number that fall outside the specifications. Therefore, the answer is given by the complement, $1 - 98.36\% = \boxed{1.639\%}$
+
+
+Part C asks what value of $c$ makes $P(y\leq c) = 0.05$ true. This can be found using the Z-score table. Because my table only has values of $c\geq0$, I must use the complement, or $P(y \geq 1-0.05)$. I find $0.95$ in the table approximately halfway between $c = 1.6$ and $c = 1.7$. Therefore, $\boxed{c \approxeq 1.65}$. 
+TODO check part C
+
+
+
+
+
+
+
+
+\noindent\rule{8cm}{0.4pt}
+
+3. a) The probability  $P(x+y < 21)$ is simply the sum of all boxes in the table where the sum of $x$ and $y$ is less than or equal to 21. This will be $0.20 + 0.10 + 0.10 + 0.15 + 0.15 = \boxed{0.70}$. 
+
+b) Marginal distributions are indicated in the last rows and columns. 
+\begin{table}[H]
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		y & x=5 & 6 & 7 & $p(y=n)$ \\ \hline
+		10 & 0.20 & 0.10 & 0.10 & 0.4 \\ \hline
+		15 & 0.15 & 0.15 & 0.10 & 0.4 \\ \hline
+		20 & 0.05 & 0.10 & 0.05 & 0.2 \\ \hline
+		$p(x=n)$ & 0.40 & 0.35 & 0.25 & $\Sigma = 1$ \\ \hline
+	\end{tabular}
+	\caption{Table of data with marginal distributions for Problem 3b. }
+\end{table}
+
+\noindent\rule{8cm}{0.4pt}
+
+4. According to the problem, $\mu = 50$, $\sigma = 10$. Let $x$ represent a score. We are asked to find the probability $P(x \geq 42)$ and also $P(33\leq x \leq 48)$. We have to normalize this data using a Z score. 
+
+
+$Z = \frac{x-\mu}{\sigma}$.
+
+Now, using this formula, $P(x \geq 42)$ goes to $P(\frac{x-50}{10} \geq \frac{42 - 50}{10} )=P(Z \geq -0.8)$. 
+
+Now, I can use my calculator, and use the normalcdf function (called via $normalcdf(lowerbound,upperbound,\mu,\sigma)$. 
+
+Because I have normalized my data using the Z score, my $\mu$ is zero, and my $\sigma$ is 1. Using the bounds $-0.8 \leq Z \leq 1E99$, I get the result of $\boxed{0.78814} $. This answer is reasonable. If the average score is a 50, it makes sense that the majority of the students score higher than a score below average. 
+\\
+
+For part b, to find the probability that a student scores between a 33 and a 48, we find the probability that a student scores at least a 33, and subtract that from the probability the student scores at most a 48. 
+
+Using a Z score normalization: 
+
+$P(33 < x < 48)$ goes to $P(\frac{33-50}{10} < \frac{x-50}{10} < \frac{48-50}{10})=P(-1.7 < z < -0.2)$. 
+
+Using $normalcdf(lowerbound,upperbound,\mu,\sigma)$: 
+
+My lower bound is $-1.7$, my upper bound is $-0.2$, $\mu = 0$, and $\sigma=1$.This gives an answer of $\boxed{37.617\%}$. 
+
+
+\noindent\rule{8cm}{0.4pt}
+
+5. 
+
+
+ 
+
+\end{document}
